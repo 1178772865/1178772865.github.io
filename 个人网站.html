@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>胡阳 | AI Agent 布道者</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0071e3',
+                        primaryHover: '#0077ed',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* 自定义滚动条 - 苹果风格 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* 淡入动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .delay-100 {
+            animation-delay: 100ms;
+        }
+        
+        .delay-200 {
+            animation-delay: 200ms;
+        }
+        
+        .delay-300 {
+            animation-delay: 300ms;
+        }
+        
+        .delay-400 {
+            animation-delay: 400ms;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900 font-sans antialiased">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="text-xl font-semibold text-gray-900">唯庸</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-gray-600 hover:text-gray-900 transition-colors">关于我</a>
+                <a href="#works" class="text-gray-600 hover:text-gray-900 transition-colors">代表作品</a>
+                <a href="#contact" class="text-gray-600 hover:text-gray-900 transition-colors">联系我</a>
+            </div>
+            <!-- 移动端菜单按钮 -->
+            <button id="menuBtn" class="md:hidden text-gray-600 hover:text-gray-900">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white border-t border-gray-100">
+            <div class="px-6 py-4 space-y-4">
+                <a href="#about" class="block text-gray-600 hover:text-gray-900">关于我</a>
+                <a href="#works" class="block text-gray-600 hover:text-gray-900">代表作品</a>
+                <a href="#contact" class="block text-gray-600 hover:text-gray-900">联系我</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 头图区 -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+        <!-- 背景渐变 -->
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50/30"></div>
+        <!-- 装饰元素 -->
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-80 h-80 bg-purple-100/30 rounded-full blur-3xl"></div>
+        
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+            <!-- 头像 -->
+            <div class="w-32 h-32 md:w-40 md:h-40 mx-auto mb-8 rounded-full overflow-hidden shadow-xl ring-4 ring-white/50">
+                <img src="https://picsum.photos/400/400?random=1" alt="胡阳" class="w-full h-full object-cover">
+            </div>
+            
+            <!-- 名字和身份 -->
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 animate-fadeInUp">胡阳</h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-8 animate-fadeInUp delay-100">
+                AI Agent 布道者 / 产品经理 / 开源社区主理人
+            </p>
+            
+            <!-- 简介 -->
+            <p class="text-gray-500 text-lg max-w-2xl mx-auto mb-10 animate-fadeInUp delay-200">
+                用AI解放10000人的生产力，助力企业完成智能体工作流部署
+            </p>
+            
+            <!-- 行动按钮 -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fadeInUp delay-300">
+                <a href="#works" class="inline-flex items-center justify-center px-8 py-3 bg-primary text-white font-medium rounded-full hover:bg-primaryHover transition-all hover:shadow-lg">
+                    <i class="fas fa-briefcase mr-2"></i>
+                    查看作品
+                </a>
+                <a href="#contact" class="inline-flex items-center justify-center px-8 py-3 border border-gray-300 text-gray-700 font-medium rounded-full hover:bg-gray-50 transition-all">
+                    <i class="fas fa-envelope mr-2"></i>
+                    联系我
+                </a>
+            </div>
+            
+            <!-- 向下滚动提示 -->
+            <div class="mt-16 animate-bounce">
+                <a href="#about" class="inline-block text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="py-24 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-4">关于我</h2>
+            <p class="text-gray-500 text-center mb-16">唯庸 | AI Agent 布道者</p>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- 个人经历 -->
+                <div class="animate-fadeInUp">
+                    <h3 class="text-xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-user-circle text-primary mr-2"></i>
+                        个人经历
+                    </h3>
+                    <ul class="space-y-4 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                            <span>5年B端产品经验，上市公司产品经验，供应链高级产品经理，熟悉水果生鲜行业</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                            <span>从0到1搭建了集团数字化系统体系，精通模块包括:WMS、CRM、MRP、QMS、ERP等</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                            <span>较强的数据分析能力，擅长从固有流程中挖掘效率提升点，半年内业务满意度从71%提升到95%</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                            <span>曾带领25人研发团队，2年晋升2级，获得公司年度优秀员工等荣誉</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 正在做的事情 -->
+                <div class="animate-fadeInUp delay-100">
+                    <h3 class="text-xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-rocket text-primary mr-2"></i>
+                        我在做什么
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-building text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">企业AI转型咨询</h4>
+                                <p class="text-gray-500 text-sm">已助力20+团队完成智能体工作流部署</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-star text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">万人智能体计划</h4>
+                                <p class="text-gray-500 text-sm">用AI解放10000人的生产力</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-lightbulb text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">独立产品</h4>
+                                <p class="text-gray-500 text-sm">使用AI不写一行代码，实现产品商业化</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 代表作品 -->
+    <section id="works" class="py-24 px-6 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-4">代表作品</h2>
+            <p class="text-gray-500 text-center mb-16">探索我的项目成果</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 作品1 -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-fadeInUp">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=2" alt="Agent 101 智能体指北" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Agent 101 智能体指北</h3>
+                        <p class="text-gray-500 text-sm mb-4">系统介绍AI Agent概念与实践指南</p>
+                        <a href="https://agent101.feishu.cn/wiki/KLarwIA1piLrBYk7bf2cBf3HnNe" target="_blank" class="inline-flex items-center text-primary hover:text-primaryHover text-sm font-medium">
+                            查看详情
+                            <i class="fas fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 作品2 -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-fadeInUp delay-100">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=3" alt="唯庸的AI公开课" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">唯庸的AI公开课</h3>
+                        <p class="text-gray-500 text-sm mb-4">免费AI教育课程平台</p>
+                        <a href="https://agent101.cn/" target="_blank" class="inline-flex items-center text-primary hover:text-primaryHover text-sm font-medium">
+                            查看详情
+                            <i class="fas fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 作品3 -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-fadeInUp delay-200">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=4" alt="YoNote 万物可视化Agent" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">YoNote 万物可视化Agent</h3>
+                        <p class="text-gray-500 text-sm mb-4">智能笔记与可视化工具</p>
+                        <a href="https://yonote.net/" target="_blank" class="inline-flex items-center text-primary hover:text-primaryHover text-sm font-medium">
+                            查看详情
+                            <i class="fas fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我 -->
+    <section id="contact" class="py-24 px-6 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-4">联系我</h2>
+            <p class="text-gray-500 text-center mb-16">期待与您的交流</p>
+            
+            <div class="grid sm:grid-cols-2 gap-6">
+                <!-- 社交账号卡片 -->
+                <a href="https://mp.weixin.qq.com/" target="_blank" class="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group animate-fadeInUp">
+                    <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0 mr-4">
+                        <i class="fas fa-user-circle text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-900 group-hover:text-primary transition-colors">公众号</h4>
+                        <p class="text-gray-500 text-sm">唯庸AI进化论</p>
+                    </div>
+                    <i class="fas fa-external-link ml-auto text-gray-400 group-hover:text-primary transition-colors"></i>
+                </a>
+                
+                <a href="mailto:1178772865@QQ.com" class="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group animate-fadeInUp delay-100">
+                    <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0 mr-4">
+                        <i class="fas fa-envelope text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-900 group-hover:text-primary transition-colors">邮箱</h4>
+                        <p class="text-gray-500 text-sm">1178772865@QQ.com</p>
+                    </div>
+                    <i class="fas fa-external-link ml-auto text-gray-400 group-hover:text-primary transition-colors"></i>
+                </a>
+                
+                <a href="https://szjlduanzi.1688.com" target="_blank" class="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group animate-fadeInUp delay-200">
+                    <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0 mr-4">
+                        <i class="fas fa-store text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-900 group-hover:text-primary transition-colors">1688</h4>
+                        <p class="text-gray-500 text-sm">szjlduanzi.1688.com</p>
+                    </div>
+                    <i class="fas fa-external-link ml-auto text-gray-400 group-hover:text-primary transition-colors"></i>
+                </a>
+                
+                <div class="flex items-center p-4 bg-gray-50 rounded-xl animate-fadeInUp delay-300">
+                    <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center flex-shrink-0 mr-4">
+                        <i class="fab fa-weixin text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-900">微信</h4>
+                        <p class="text-gray-500 text-sm">13723120335</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="py-8 px-6 bg-gray-50 border-t border-gray-100">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-gray-500 text-sm">
+                © 2024 胡阳. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+        
+        // 点击导航链接关闭移动端菜单
+        document.querySelectorAll('#mobileMenu a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.getElementById('mobileMenu').classList.add('hidden');
+            });
+        });
+        
+        // 滚动时导航栏样式变化
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-sm');
+            } else {
+                nav.classList.remove('shadow-sm');
+            }
+        });
+        
+        // 淡入动画触发
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeInUp');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('section > div > div').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
